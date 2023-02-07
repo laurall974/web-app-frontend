@@ -4,7 +4,7 @@ Congrats for being here.
 
 ## Backend
 
-I use the backend you provided but I had a few lines to allow CORS and fetch date from the end `.sort({_id=-1})`. 
+I use the backend you provided but I had a few lines to allow CORS and fetch data from the end `.sort({_id:-1})`. 
 So you can use : https://github.com/laurall974/secure-web-dev-backend
 
 You need to fork this repository then clone it on your computer.
@@ -41,3 +41,5 @@ If you are not logged : page like addlocation updatelocation or locations list a
 You can always return to the precedent page. 
 
 If you are not the admin user some button are hide.
+
+Error when login are handle.
