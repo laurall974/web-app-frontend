@@ -35,6 +35,21 @@
         isLog = result;
     });
 
+    const handleReset = async () => {
+        filmType = '';
+        filmProducerName = '';
+        endDate= new Date();
+        filmName = '';
+        district = 0;
+        coordinates = [];
+        type = '';
+        sourceLocationId = '';
+        filmDirectorName = '';
+        address = '';
+        startDate = new Date();
+        year= 0;
+
+    }
 
     const handleSubmit = async () => {
         try {
@@ -71,7 +86,7 @@
                 } else {
                     console.log(data)
                     Show()
-                    //location.href='/locationlist';
+                    await handleReset()
                 }
             }
         } catch (err) {
@@ -80,7 +95,7 @@
         }
     };
 
-    async function Retour(){
+    async function Return(){
         location.href = "/locationlist"
     }
 
@@ -89,7 +104,7 @@
 {#if isLog}
     <header>Create a new location</header>
     <div>
-    <button on:click={Retour}>Return</button>
+    <button on:click={Return}>Return</button>
     <form>
         <input type="text" bind:value={filmType} placeholder="Film type" />
         <input type="text" bind:value={filmProducerName} placeholder="Film Producer Name" />
@@ -104,7 +119,6 @@
         <input type="date" bind:value={startDate} placeholder="Start Date" />
         <input type="text" bind:value={year} placeholder="Year" />
         <button on:click={handleSubmit}>Add this location</button>
-        <p></p>
     </form>
     </div>
 

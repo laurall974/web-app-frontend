@@ -3,18 +3,11 @@
     let error = null;
 
     import Cookies from 'js-cookie';
-
-    async function isLogged() {
-        const jwt = await Cookies.get('jwt');
-        if (!jwt) {
-            return false;
-        }
-        else {
-            return jwt!= null; }
-    };
+    import { onMount } from 'svelte';
 
     const fetchData = async () => {
         try {
+            console.log("ICI")
                     const jwt = await Cookies.get('jwt');
                     if(!jwt){
                         location.href('/login') }
@@ -31,16 +24,15 @@
                             throw new Error(res.statusText);
                         }
                         const data = await res.json();
-                        films = data.sort((a, b) => b.date - a.date);;
+                        films = data;
                     }
-
         }
         catch (err) {
             error = err.message;
         }
     };
 
-    fetchData();
+    onMount(fetchData);
 
     const logOut = async () => {
         const jwt = await Cookies.get('jwt');
