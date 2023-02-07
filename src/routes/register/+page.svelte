@@ -104,10 +104,6 @@
         cursor: pointer;
     }
 
-    .error {
-        color: red;
-        margin-top: 1rem;
-    }
     .modal-background {
         position: fixed;
         top: 0;
