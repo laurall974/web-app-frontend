@@ -26,28 +26,26 @@
             if(isLogged)
                 {
                     const jwt = await Cookies.get('jwt');
-                    if(!jwt
-        )
-            {
-                //navigate('/login');
-            }
-        else
-            {
-                const res = await fetch(`http://localhost:3000/locations`, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${jwt}`
-                    }
-                });
-                if (!res.ok) {
-                    throw new Error(res.statusText);
-                }
+                    if(!jwt){
+                        location.href('/login') }
+                    else
+                    {
+                        const res = await fetch(`http://localhost:3000/locations`, {
+                            method: 'GET',
+                            headers: {
+                                'Authorization': `Bearer ${jwt}`
+                            }
+                        });
 
-                const data = await res.json();
-                films = data;
-            }
+                        if (!res.ok) {
+                            throw new Error(res.statusText);
+                        }
+                        const data = await res.json();
+                        films = data;
+                    }
+                }
         }
-        } catch (err) {
+        catch (err) {
             error = err.message;
         }
     };
@@ -62,36 +60,34 @@
         location.href="/"
     }
 
-
+    // To check the role
     async function isAdmin() {
         const jwt = await Cookies.get('jwt');
-
         const res = await fetch('http://localhost:3000/users/me', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${jwt}`
             }
         });
-
         if (!res.ok) {
-            console.log("ici");
+            return false;
         }
-
         try {
             const result = await res.json();
             return result.role === 'admin';
         } catch (error) {
-            console.error(error);
             return false;
         }
     }
 
+    //to allow or not to see update button
     let isAdminUser = false;
 
     isAdmin().then(result => {
         isAdminUser = result;
     });
 
+    //Popup : to display details of one location
     let popup = false;
     let filmId = "";
     let film = {}
@@ -101,11 +97,9 @@
         console.log(filmId)
         film = films.find(film => film._id === filmId);
     }
-    function ShowDetails(id) {
+    function ShowDetails() {
         popup = !popup;
     }
-
-
 
 </script>
 
@@ -114,14 +108,16 @@
         <p>An error occurred while fetching the data: {error}</p>
 
     {:else}
+        <header>
+            Location List
+        </header>
         <div>
+            <button class="logout" on:click={logOut}>Déconnexion</button>
             <form>
-                <button class="logout" on:click={logOut}>Déconnexion</button>
-                <h1>Location List</h1>
                 {#if isAdminUser}
                     <a href="/addlocation">Add a new location</a>
+                    <br />
                 {/if}
-                <br />
                 {#each films as film}
                     <table>
                         <tr>
@@ -134,7 +130,7 @@
                             <!-- Add data from your filmSchema model here -->
                             <td>
                                 {#if isAdminUser}<a href="/updatelocation/{film._id}">Update</a> {/if}
-                                <button on:click={() => {retrieveId(film._id); ShowDetails();}} >Details</button>
+                                <button on:click={() => {retrieveId(film._id); ShowDetails();}} >Display details</button>
                             </td>
                             <td>{film.filmType}</td>
                             <td>{film.filmProducerName}</td>
@@ -178,11 +174,23 @@
                 <td>{film.year}</td>
             </tr>
         </table>
-        <button on:click={ShowDetails}>Close</button>
+        <button class="close" on:click={ShowDetails}>Close</button>
     </div>
 {/if}
 
+
+
 <style>
+    header {
+        background: rosybrown;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 60px;
+        font-size: 30px;
+
+    }
     form {
         display: flex;
         flex-direction: column;
@@ -205,7 +213,7 @@
         font-size: 14px;
     }
     th {
-        background-color: lightgray;
+        background-color: lightgrey;
     }
     a {
         margin-bottom: 1rem;
@@ -216,12 +224,21 @@
         border: none;
         cursor: pointer;
     }
-    button.logout {
+    button {
+        padding: 10px 20px;
+        background-color: rosybrown;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .logout {
         position: absolute;
-        top: 10px;
+        top: 80px;
         right: 10px;
         padding: 10px 20px;
-        background-color: black;
+        background-color: rosybrown;
         color: #fff;
         border: none;
         border-radius: 5px;
@@ -247,8 +264,4 @@
         border-radius: 0.5rem;
         color: black;
     }
-
-
 </style>
-
-
