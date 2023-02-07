@@ -7,24 +7,14 @@
     async function isLogged() {
         const jwt = await Cookies.get('jwt');
         if (!jwt) {
-            console.log("NON");
             return false;
         }
         else {
-            console.log(jwt)
             return jwt!= null; }
     };
 
-    let isLog = false;
-    isLogged().then(result => {
-        isLog = result;
-    });
-
-
     const fetchData = async () => {
         try {
-            if(isLogged)
-                {
                     const jwt = await Cookies.get('jwt');
                     if(!jwt){
                         location.href('/login') }
@@ -41,9 +31,9 @@
                             throw new Error(res.statusText);
                         }
                         const data = await res.json();
-                        films = data;
+                        films = data.sort((a, b) => b.date - a.date);;
                     }
-                }
+
         }
         catch (err) {
             error = err.message;
@@ -103,7 +93,7 @@
 
 </script>
 
-{#if isLog}
+
     {#if error}
         <p>An error occurred while fetching the data: {error}</p>
 
@@ -129,7 +119,7 @@
                         <tr>
                             <!-- Add data from your filmSchema model here -->
                             <td>
-                                {#if isAdminUser}<a href="/updatelocation/{film._id}">Update</a> {/if}
+                                {#if isAdminUser}<a href="/updatelocation/{film._id}">Manage</a> {/if}
                                 <button on:click={() => {retrieveId(film._id); ShowDetails();}} >Display details</button>
                             </td>
                             <td>{film.filmType}</td>
@@ -143,7 +133,6 @@
             </form>
         </div>
     {/if}
-{/if}
 
 {#if popup}
     <div class="modal-background" on:click={ShowDetails}></div>
@@ -195,7 +184,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin: 10px auto;
+        margin: 50px auto;
     }
     p {
         font-size: 18px;

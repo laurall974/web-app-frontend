@@ -5,8 +5,7 @@ export async function load({ params, cookies}) {
         try {
             const jwt = await cookies.get('jwt');
             if (!jwt) {
-                //navigate('/login');
-                console.log("nullos")
+                console.log("Nullos")
             }
             else {
                 let url = `http://localhost:3000/locations/${id}`;

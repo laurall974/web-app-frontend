@@ -3,7 +3,7 @@ Hi Roch !
 Congrats for being here.
 
 I use the backend you provided I had a few lines to allow CORS. 
-So you can use : 
+So you can use : https://github.com/laurall974/secure-web-dev-backend
 
 To start you need to run the back : `npm start`
 
@@ -17,6 +17,3 @@ access all features
 - US4: As an “admin" user, I want to see a “Add Location” button in the location page, so that I can create a new location
 - US5: As an “admin" user, I want to see a button to edit locations in the array of locations, so that I can edit existing locations
 - US6: As an “admin" user, I want to see a button to delete locations in the array of locations so that I can delete existing locations
-
-L'image de fond a été crée par DALL-E.
-Si vous vous trompez d'identifiant lors du log in : un message d'erreur apparaît.

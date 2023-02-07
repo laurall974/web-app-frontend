@@ -24,8 +24,6 @@
     const handleUpdate = async () => {
         try {
             const jwt = await Cookies.get('jwt');
-            console.log(jwt)
-            console.log(year)
 
             let url = `http://localhost:3000/locations/${id}`;
 
@@ -76,9 +74,9 @@
         popup = !popup;
     }
 
-    const handleDelete = async (id) => {
+    const handleDelete = async () => {
         try {
-            console.log(id)
+
             const jwt = await Cookies.get('jwt');
             if (!jwt) {
                 console.log('ERROR');
@@ -89,7 +87,6 @@
                         'Authorization': `Bearer ${jwt}`,
                     }
                 });
-
                 const data = await response.json();
                 if (data.error) {
                     error = data.message;
@@ -105,15 +102,19 @@
     };
 
 </script>
+
 <div>
-    <form on:submit={handleUpdate}>
-        <h1>Update location</h1>
+    <header>Update/Delete location</header>
+    <div>
+    <button on:click={Retour}>Return</button>
+    <form >
+        <button on:click={Show}>Delete</button>
         <h2>Film type:</h2>
         <input type="text" bind:value={filmType} />
         <h2>Film Producer Name:</h2>
         <input type="text" bind:value={filmProducerName} />
         <h2>End Date:</h2>
-        <input type="date" bind:value={endDate}/>
+        <input type="text" bind:value={endDate}/>
         <h2>Film Name:</h2>
         <input type="text" bind:value={filmName} />
         <h2>Film district:</h2>
@@ -129,16 +130,16 @@
         <h2>Address:</h2>
         <input type="text" bind:value={address} />
         <h2>Start Date:</h2>
-        <input type="date" bind:value={startDate} />
+        <input type="text" bind:value={startDate} />
         <h2>Year:</h2>
         <input type="text" bind:value={year} />
 
-        <button type="submit">Update this location</button>
+        <button on:click={handleUpdate}>Update this location</button>
         <p></p>
     </form>
+    </div>
 
-    <button on:click={Retour}>Return</button>
-    <button on:click={Show}>Delete</button>
+
     {#if popup}
         <div class="modal-background" on:click={Show}></div>
         <div class="modal-content">
@@ -151,17 +152,30 @@
 
 
 <style>
+    header {
+        background: rosybrown;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 60px;
+        font-size: 30px;
+
+    }
     form {
         display: flex;
         flex-direction: column;
         align-items: center;
         padding: 1rem;
         background-color: #f2f2f2;
-        margin: 100px auto;
+
+    }
+    div {
+        background-color: #f2f2f2;
     }
 
     input {
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem;
         padding: 0.5rem;
         font-size: 1rem;
         border-radius: 5px;
@@ -176,13 +190,19 @@
     }
 
     button {
-        background-color: blue;
+        background-color: rosybrown;
+        display: inline-block;
         color: white;
-        padding: 0.75rem 1.5rem;
+        padding: 1rem 3rem;
         border-radius: 5px;
         border: none;
         cursor: pointer;
+        margin: 0.5rem;
+        font-size: 13px;
+        align-content: center;
+
     }
+
 
     .modal-background {
         position: fixed;
@@ -202,8 +222,5 @@
         padding: 1rem;
         border-radius: 0.5rem;
     }
-    .error {
-        color: red;
-        margin-top: 1rem;
-    }
+
 </style>
