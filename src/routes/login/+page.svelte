@@ -30,7 +30,6 @@
                 location.href = '/locationlist';
             }
         } catch (err) {
-            console.error(err);
             error = 'An error occurred while trying to authenticate';
         }
     };

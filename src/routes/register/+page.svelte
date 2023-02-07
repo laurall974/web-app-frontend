@@ -23,7 +23,6 @@
             if (data.error) {
                 error = data.message;
             } else {
-                console.log(data)
                 location.href = '/login';
             }
         } catch (err) {
