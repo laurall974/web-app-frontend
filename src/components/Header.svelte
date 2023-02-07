@@ -39,7 +39,6 @@
     }
     header {
         background: linear-gradient(to right, black,black);
-
         color: #fff;
         display: flex;
         align-items: center;

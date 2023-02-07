@@ -195,8 +195,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 1rem;
-        margin: 100px auto;
+        margin: 10px auto;
     }
     p {
         font-size: 18px;
@@ -204,20 +203,22 @@
     }
     table {
         width: 100%;
-        border-collapse: collapse;
+        margin: 10px 0;
+        border-radius: 10px;
+        overflow: hidden;
     }
     th, td {
         border: 1px solid black;
         padding: 8px;
         text-align: left;
-        font-size: 14px;
+        font-size: 16px;
     }
     th {
         background-color: lightgrey;
     }
     a {
         margin-bottom: 1rem;
-        background-color: blue;
+        background-color: rosybrown;
         color: white;
         padding: 0.75rem 1.5rem;
         border-radius: 5px;
@@ -231,6 +232,7 @@
         border: none;
         border-radius: 5px;
         cursor: pointer;
+        font-size: 16px;
     }
 
     .logout {
@@ -243,6 +245,7 @@
         border: none;
         border-radius: 5px;
         cursor: pointer;
+        font-size: 16px;
     }
 
     .modal-background {
