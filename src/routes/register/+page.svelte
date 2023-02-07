@@ -6,8 +6,7 @@
     let password = '';
     let error = '';
 
-    async function handleSubmit(event) {
-        event.preventDefault();
+    async function handleSubmit() {
         try {
             const response = await fetch('http://localhost:3000/users/register', {
                 method: 'POST',
@@ -19,18 +18,24 @@
                     password
                 })
             });
-            console.log(response.json())
             const data = await response.json();
-            if (data.success) {
-                const data = await response.json();
+            console.log(data)
+            if (data.error) {
+                error = data.message;
+            } else {
                 console.log(data)
                 location.href = '/login';
-            } else {
-                error = data.message;
             }
         } catch (err) {
             error = 'An error occurred while trying to register';
         }
+    }
+
+    // to allow or not the modal error to be display on the screen
+    let popup = false;
+
+    function Show() {
+        popup = !popup;
     }
 
 </script>
@@ -49,8 +54,16 @@
 </body>
 
 {#if error}
-    <p class="error">{error}</p>
+    {#if !popup}
+        <div class="modal-background" on:click={Show}></div>
+        <div class="modal-content">
+            <p>{error}</p>
+            <p>Try another username.</p>
+        </div>
+        <button on:click={Show}>Close</button>
+    {/if}
 {/if}
+
 
 <style>
     body {
@@ -94,5 +107,24 @@
     .error {
         color: red;
         margin-top: 1rem;
+    }
+    .modal-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        color: red;
     }
 </style>
