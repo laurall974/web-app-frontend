@@ -10,7 +10,7 @@
             console.log("ICI")
                     const jwt = await Cookies.get('jwt');
                     if(!jwt){
-                        location.href('/login') }
+                        location.href='/login' }
                     else
                     {
                         const res = await fetch(`http://localhost:3000/locations`, {
