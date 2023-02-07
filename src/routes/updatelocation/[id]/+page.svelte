@@ -74,6 +74,32 @@
         popup = !popup;
     }
 
+    // To check the role
+    async function isAdmin() {
+        const jwt = await Cookies.get('jwt');
+        const res = await fetch('http://localhost:3000/users/me', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${jwt}`
+            }
+        });
+        if (!res.ok) {
+            return false;
+        }
+        try {
+            const result = await res.json();
+            return result.role === 'admin';
+        } catch (error) {
+            return false;
+        }
+    }
+    //to allow or not to see update button
+    let isAdminUser = false;
+
+    isAdmin().then(result => {
+        isAdminUser = result;
+    });
+
     const handleDelete = async () => {
         try {
 
@@ -103,52 +129,53 @@
 
 </script>
 
-<div>
-    <header>Update/Delete location</header>
+{#if isAdminUser}
     <div>
-    <button on:click={Retour}>Return</button>
-    <form >
-        <button on:click={Show}>Delete</button>
-        <h2>Film type:</h2>
-        <input type="text" bind:value={filmType} />
-        <h2>Film Producer Name:</h2>
-        <input type="text" bind:value={filmProducerName} />
-        <h2>End Date:</h2>
-        <input type="text" bind:value={endDate}/>
-        <h2>Film Name:</h2>
-        <input type="text" bind:value={filmName} />
-        <h2>Film district:</h2>
-        <input type="text" bind:value={district} />
-        <h2>Geolocation : coordinates:</h2>
-        <input type="text" bind:value={coordinates}  />
-        <h2>Geolocation : type:</h2>
-        <input type="text" bind:value={type} />
-        <h2>Source Location Id:</h2>
-        <input type="text" bind:value={sourceLocationId}  />
-        <h2>Film Director Name:</h2>
-        <input type="text" bind:value={filmDirectorName} />
-        <h2>Address:</h2>
-        <input type="text" bind:value={address} />
-        <h2>Start Date:</h2>
-        <input type="text" bind:value={startDate} />
-        <h2>Year:</h2>
-        <input type="text" bind:value={year} />
+        <header>Update/Delete location</header>
+        <div>
+        <button on:click={Retour}>Return</button>
+        <form >
+            <button on:click={Show}>Delete</button>
+            <h2>Film type:</h2>
+            <input type="text" bind:value={filmType} />
+            <h2>Film Producer Name:</h2>
+            <input type="text" bind:value={filmProducerName} />
+            <h2>End Date:</h2>
+            <input type="text" bind:value={endDate}/>
+            <h2>Film Name:</h2>
+            <input type="text" bind:value={filmName} />
+            <h2>Film district:</h2>
+            <input type="text" bind:value={district} />
+            <h2>Geolocation : coordinates:</h2>
+            <input type="text" bind:value={coordinates}  />
+            <h2>Geolocation : type:</h2>
+            <input type="text" bind:value={type} />
+            <h2>Source Location Id:</h2>
+            <input type="text" bind:value={sourceLocationId}  />
+            <h2>Film Director Name:</h2>
+            <input type="text" bind:value={filmDirectorName} />
+            <h2>Address:</h2>
+            <input type="text" bind:value={address} />
+            <h2>Start Date:</h2>
+            <input type="text" bind:value={startDate} />
+            <h2>Year:</h2>
+            <input type="text" bind:value={year} />
 
-        <button on:click={handleUpdate}>Update this location</button>
-        <p></p>
-    </form>
-    </div>
-
-
-    {#if popup}
-        <div class="modal-background" on:click={Show}></div>
-        <div class="modal-content">
-            <p>Are you sure?</p>
-            <button on:click={Show}>No</button>
-            <button on:click={() => handleDelete(id)}>Yes</button>
+            <button on:click={handleUpdate}>Update this location</button>
+            <p></p>
+        </form>
         </div>
-    {/if}
-</div>
+
+        {#if popup}
+            <div class="modal-background" on:click={Show}></div>
+            <div class="modal-content">
+                <p>Are you sure?</p>
+                <button on:click={Show}>No</button>
+                <button on:click={() => handleDelete(id)}>Yes</button>
+            </div>
+        {/if}
+    </div>
+{/if}
 
 
 <style>

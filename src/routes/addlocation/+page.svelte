@@ -35,6 +35,32 @@
         isLog = result;
     });
 
+    // To check the role
+    async function isAdmin() {
+        const jwt = await Cookies.get('jwt');
+        const res = await fetch('http://localhost:3000/users/me', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${jwt}`
+            }
+        });
+        if (!res.ok) {
+            return false;
+        }
+        try {
+            const result = await res.json();
+            return result.role === 'admin';
+        } catch (error) {
+            return false;
+        }
+    }
+    //to allow or not to see update button
+    let isAdminUser = false;
+
+    isAdmin().then(result => {
+        isAdminUser = result;
+    });
+
     const handleReset = async () => {
         filmType = '';
         filmProducerName = '';
@@ -101,7 +127,7 @@
 
 </script>
 
-{#if isLog}
+{#if isLog && isAdminUser}
     <header>Create a new location</header>
     <div>
     <button on:click={Return}>Return</button>
