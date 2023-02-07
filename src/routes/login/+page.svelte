@@ -1,5 +1,5 @@
 <script>
-
+    import Head from '../../components/Header.svelte'
     import Cookies from 'js-cookie';
 
     let username = '';
@@ -26,10 +26,8 @@
             } else {
                 // store JWT in a cookie
                 Cookies.set('jwt', data.jwt, { expires: 1 });
-
                 // navigate to protected page
                 location.href = '/locationlist';
-
             }
         } catch (err) {
             console.error(err);
@@ -37,6 +35,7 @@
         }
     };
 
+    // to allow or not the modal error to be display on the screen
     let popup = false;
 
     function Show() {
@@ -45,16 +44,17 @@
 
 </script>
 
-
-<form on:submit={handleLogin}>
-    <h1>Login</h1>
-    <input type="text" bind:value={username} placeholder="Username" />
-    <input type="password" bind:value={password} placeholder="Password" />
-    <button type="submit">Login</button>
-    <p></p>
-    <a href="/register"  >Don't have an account? Register</a>
-</form>
-
+<Head/>
+<body>
+    <form on:submit={handleLogin}>
+        <h1>Login</h1>
+        <input type="text" bind:value={username} placeholder="Username" />
+        <input type="password" bind:value={password} placeholder="Password" />
+        <button type="submit">Login</button>
+        <p></p>
+        <a href="/register"  >Don't have an account? Register</a>
+    </form>
+</body>
 {#if error}
     {#if !popup}
         <div class="modal-background" on:click={Show}></div>
@@ -66,7 +66,18 @@
 {/if}
 
 
+
+
 <style>
+    body {
+        background-image: url('../../DALL-E2023.png');
+        background-size: cover;
+        background-position: center;
+        margin: 0;
+        padding: 0;
+        height: 94vh;
+
+    }
     form {
         display: flex;
         flex-direction: column;
@@ -95,8 +106,6 @@
         border: none;
         cursor: pointer;
     }
-
-
     .modal-background {
         position: fixed;
         top: 0;
@@ -117,4 +126,3 @@
         color: red;
     }
 </style>
-
