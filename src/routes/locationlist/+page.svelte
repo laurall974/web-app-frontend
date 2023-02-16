@@ -45,6 +45,7 @@
     // To check the role
     async function isAdmin() {
         const jwt = await Cookies.get('jwt');
+        try {
         const res = await fetch('https://web-app-back-laurall.onrender.com/users/me', {
             method: 'GET',
             headers: {
@@ -54,7 +55,7 @@
         if (!res.ok) {
             return false;
         }
-        try {
+
             const result = await res.json();
             return result.role === 'admin';
         } catch (error) {
