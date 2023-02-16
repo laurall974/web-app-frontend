@@ -13,7 +13,7 @@
                         location.href='/login' }
                     else
                     {
-                        const res = await fetch(`http://localhost:3000/locations`, {
+                        const res = await fetch(`https://web-app-back-laurall.onrender.com/locations`, {
                             method: 'GET',
                             headers: {
                                 'Authorization': `Bearer ${jwt}`
@@ -45,7 +45,7 @@
     // To check the role
     async function isAdmin() {
         const jwt = await Cookies.get('jwt');
-        const res = await fetch('http://localhost:3000/users/me', {
+        const res = await fetch('https://web-app-back-laurall.onrender.com/users/me', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${jwt}`
