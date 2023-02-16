@@ -8,7 +8,7 @@ export async function load({ params, cookies}) {
                 console.log("Nullos")
             }
             else {
-                let url = `http://localhost:3000/locations/${id}`;
+                let url = `https://web-app-back-laurall.onrender.com/locations/${id}`;
 
                 let options = {
                     method: 'GET',

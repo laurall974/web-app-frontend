@@ -38,7 +38,7 @@
     // To check the role
     async function isAdmin() {
         const jwt = await Cookies.get('jwt');
-        const res = await fetch('http://localhost:3000/users/me', {
+        const res = await fetch('https://web-app-back-laurall.onrender.com/users/me', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${jwt}`
@@ -84,7 +84,7 @@
                 error='You cannot access this content'
             }
             else {
-                const response = await fetch(`http://localhost:3000/locations`, {
+                const response = await fetch(`https://web-app-back-laurall.onrender.com/locations`, {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${jwt}`,

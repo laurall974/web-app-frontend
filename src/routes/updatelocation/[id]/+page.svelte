@@ -25,7 +25,7 @@
         try {
             const jwt = await Cookies.get('jwt');
 
-            let url = `http://localhost:3000/locations/${id}`;
+            let url = `https://web-app-back-laurall.onrender.com/locations/${id}`;
 
             let options = {
                 method: 'PATCH',
@@ -77,7 +77,7 @@
     // To check the role
     async function isAdmin() {
         const jwt = await Cookies.get('jwt');
-        const res = await fetch('http://localhost:3000/users/me', {
+        const res = await fetch('https://web-app-back-laurall.onrender.com/users/me', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${jwt}`
@@ -107,7 +107,7 @@
             if (!jwt) {
                 console.log('ERROR');
             } else {
-                const response = await fetch(`http://localhost:3000/locations/${id}`, {
+                const response = await fetch(`https://web-app-back-laurall.onrender.com/locations/${id}`, {
                     method: 'DELETE',
                     headers: {
                         'Authorization': `Bearer ${jwt}`,
